@@ -15,12 +15,10 @@ const getCurrentTime = function (currentTime) {
   localStorage.setItem(CURRENT_TIME_KEY, JSON.stringify(seconds));
 };
 
-if (localStorage.getItem(CURRENT_TIME_KEY) >= 570) {
-  localStorage.setItem(CURRENT_TIME_KEY, 0.0);
-  player.setCurrentTime(
-    JSON.parse(localStorage.getItem(CURRENT_TIME_KEY)) || 0
-  );
-}
+player.on('ended', function (data) {
+  player.setCurrentTime(JSON.parse(0.0));
+});
+
 console.log(localStorage.getItem(CURRENT_TIME_KEY));
 player.on('timeupdate', throttle(getCurrentTime, 1000));
 player.setCurrentTime(JSON.parse(localStorage.getItem(CURRENT_TIME_KEY)) || 0);
